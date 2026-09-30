@@ -1,0 +1,7 @@
+node_modules
+.next
+out
+.git
+.env*
+deploy/hong-kong/.env
+tests/ssr.html
