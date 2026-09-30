@@ -1,4 +1,4 @@
-# SecondOrder Scenario 香港部署
+# SecondOrder V0.2 香港部署
 
 网站已支持完全静态部署。页面、脚本、PDF 导出库、DM Sans 和 Manrope 字体由网站自身提供；中文使用设备本地字体，不请求 Google Fonts。模型计算和场景保存都在浏览器中运行。
 
@@ -12,7 +12,7 @@
 
 ## 从代码构建
 
-使用 GitHub 仓库 `ElaineYiyaoLiu/SecondOrder-Scenario` 的 `main` 分支。
+使用 GitHub 仓库 `ElaineYiyaoLiu/SecondOrder` 的 `secondorder-v02-bilingual` 分支。
 在项目目录运行：
 
 ```sh
@@ -31,7 +31,7 @@ Caddy 会自动申请并续期 HTTPS 证书。首次申请需要域名解析正�
 
 ## 直接上传静态部署包
 
-解压 `SecondOrder-Scenario-HK-static.zip`，将其中 `site/` 的内容放到主机的 `/srv/secondorder`。
+解压 `SecondOrder-v02-HK-static.zip`，将其中 `site/` 的内容放到主机的 `/srv/secondorder`。
 安装官方 Caddy，将附带的 `Caddyfile` 作为配置，并给 Caddy 服务设置 `SITE_DOMAIN` 与 `ACME_EMAIL` 环境变量。域名和邮箱占位值必须替换。
 
 静态文件也可以由其他支持 HTTPS 的 Web 服务器托管；不需要常驻 Node.js 服务。

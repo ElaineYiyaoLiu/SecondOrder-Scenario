@@ -1,47 +1,37 @@
-# SecondOrder Scenario
+# SecondOrder analysis workspace
 
-This is an interactive scenario-analysis tool for exploring how changes in technology, labor substitution, productivity, demand, and distribution can propagate through an economic system.
+Bilingual English/Chinese scenario analysis built with Next.js. The V0.2 workspace includes local scenario persistence, duplication and naming, up to three comparison paths, selectable reference paths, annual inspection, absolute and relative charts, one-at-a-time sensitivity, a substitution crossing scan, inspectable mechanisms, and a demand-feedback counterfactual.
 
-SecondOrder Scenario is built as a transparent sandbox rather than a forecasting product. Users can change assumptions, compare multiple paths, inspect model mechanisms, run sensitivity checks, and export their results.
+## Run
 
-## Live demo
-
-https://secondorder-scenario.vercel.app/
-
-## What it does
-
-- Runs ten-year scenario paths from user-defined assumptions
-- Compares multiple scenarios side by side
-- Shows absolute and relative outcome changes
-- Includes one-at-a-time sensitivity analysis
-- Lets users inspect model mechanisms and demand feedback
-- Supports local scenario saving, sharing, CSV export, and PDF reports
-
-## Model scope
-
-The model is intentionally stylized. Starting values and coefficients are illustrative rather than calibrated forecasts, and the outputs should be read as scenario comparisons rather than predictions.
-
-The current model focuses on AI adoption, labor substitution, productivity, household income and consumption, company profit, government balance, and a stylized wealth-concentration index.
-
-## Run locally
-
-```bash
+```
 npm ci
 npm run dev
-```
-
-For checks:
-
-```bash
 npm run typecheck
 npm run build
 node tests/analysis.cjs
 ```
 
-## Storage
+The build-memory-shim is only needed in constrained containers with unavailable process memory statistics. It is not used by Vercel.
 
-Saved scenarios stay in the browser using local storage. No user account or external database is required.
+## Storage and sharing
 
-## Tech
+Saved runs use the versioned localStorage key `secondorder-workspace-v3`. Editing parameters does not change results until Run & save is pressed. Switching scenarios loads their last saved values. Storage failures are surfaced in the sidebar. No account or server database is connected.
 
-Next.js, React, TypeScript, html2canvas, and jsPDF.
+Share analysis creates a URL fragment containing the saved active, compared and reference scenarios. Fragments are not sent to the server. Legacy V0.2 scenario links remain supported. All shared and stored values are validated against parameter bounds and model version before loading.
+
+Reports download as standalone printable HTML, with assumptions, annual outcomes, sensitivity ranges and methodology. The report can be printed to PDF. CSV exports the annual results and assumptions of the compared scenarios. Reports and share links include saved runs, not unrun edits.
+
+## Model
+
+`lib/model.ts` preserves the original annual equations when demand feedback is enabled. The optional feedback switch holds the demand multiplier at 1. All figures are illustrative, normalized per household and not calibrated economic forecasts. Wealth concentration is an index, not a measured wealth share. Calendar years, industry and occupation are not modeled. Input review exposes recognized parameters and unsupported dimensions; text parsing is local and does not call an LLM.
+
+Sensitivity varies one parameter at a time within bounded, explicitly shown ranges. It does not estimate probabilities or shares of variance. The crossing scan tests labor substitution at 1 percentage point intervals and reports the first bracket where the selected outcome intersects the reference. Saved runs retain model version `stylized-1.1`.
+
+## Validation
+
+`tests/analysis.cjs` verifies parity with the original model, feedback behavior, sensitivity calculations, crossing brackets, storage validation and bilingual parsing. Production rendering is verified through the local HTTP response. Browser verification of saved runs, duplication, comparison, share restoration, downloads, localization and responsive layout is pending deployment authorization.
+
+## Release repositories
+
+The current private release is `v0.2` in `secondorder-scenario-private`. The matching `secondorder-scenario-public` repository contains only `main` and is connected to Vercel for automatic production deployments at https://secondorder-scenario-public.vercel.app.
