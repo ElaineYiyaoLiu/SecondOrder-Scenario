@@ -4,6 +4,10 @@ This is an interactive scenario-analysis tool for exploring how changes in techn
 
 SecondOrder Scenario is built as a transparent sandbox rather than a forecasting product. Users can change assumptions, compare multiple paths, inspect model mechanisms, run sensitivity checks, and export their results.
 
+## Live demo
+
+https://secondorder-scenario.vercel.app/
+
 ## What it does
 
 - Runs ten-year scenario paths from user-defined assumptions
