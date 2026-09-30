@@ -1,0 +1,19 @@
+services:
+  website:
+    build:
+      context: ../..
+      dockerfile: deploy/hong-kong/Dockerfile
+    restart: unless-stopped
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:?Set your actual domain in .env}
+      ACME_EMAIL: ${ACME_EMAIL:?Set your certificate contact email in .env}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+volumes:
+  caddy_data:
+  caddy_config:
