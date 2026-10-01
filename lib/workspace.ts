@@ -5,7 +5,7 @@ export const MODEL_VERSION = 'stylized-1.1';
 export type Scenario = { id: string; name: string; question: string; params: Params; feedback: boolean; updated: string; model: string };
 export type Workspace = { v: 3; scenarios: Scenario[]; active: string; compared: string[]; reference: string; lang: 'en'|'zh' };
 export const STORAGE_KEY = 'secondorder-workspace-v3';
-export const colors = ['#4261d7', '#279c86', '#b98533'];
+export const colors = ['#315b99', '#657586', '#9c6445'];
 export function initialScenarios(): Scenario[] {
  return presets.map(p=>({id:p.id,name:p.en,question:'',params:{...p.params},feedback:true,updated:'',model:MODEL_VERSION}));
 }
